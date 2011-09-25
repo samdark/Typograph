@@ -1,0 +1,474 @@
+<?php
+	// $Id: typographus.module,v 1.0 2007/09/25 13:03:33 rmcreative Exp $
+	// Typographus
+	
+	// Реализация ловушки hook_help
+	// Предоставляет документацию, появляющуюся в различных местах интерфейса
+	function typographus_help($in_section = "admin/help#typographus")
+	{
+		switch ($in_section) {
+		case "admin/settings/modules#description":
+			// Краткое описание
+			$the_output = t("&laquo;Типограф&raquo;&nbsp;&mdash; средство подготовки текстов к&nbsp;<nobr>" .
+											"web-изданию</nobr>. Форматирует текст для приведения его к&nbsp;более " .
+											"правильному с&nbsp;точки зрения типографики&nbsp;виду.");
+			break;
+		case "admin/help#typographus":
+			// Подробное описание
+			$the_output = t("&laquo;Типограф&raquo;&nbsp;&mdash; средство подготовки текстов к&nbsp;<nobr>" .
+											"web-изданию</nobr>. Форматирует текст для приведения его к&nbsp;более " .
+											"правильному с&nbsp;точки зрения типографики&nbsp;виду.<br />" .
+											"Ссылка: <a href=\"http://rmcreative.ru/blog/post/tipograf\">" .
+											"http://rmcreative.ru/blog/post/tipograf</a><br />" .
+											"Авторы:<ul>" .
+											"<li>Оранский Максим (<a href=\"http://smee-again.livejournal.com/\">домашняя страничка</a>)</li>" .
+											"<li>Макаров Александр (<a href=\"http://rmcreative.ru/\">домашняя страничка</a>)</li></ul>" .
+											"На&nbsp;данный момент &laquo;типограф&raquo;&nbsp;умеет:<ul>" .
+											"<li>Обрабатывать тексты в&nbsp;различных кодировках(требуется iconv).</li>" .
+											"<li>Заменять кавычки на&nbsp;ёлочки.</li>" .
+											"<li>Склеивать двойные кавычки.</li>" .
+											"<li>Заменять знак дефиса или&nbsp;два знака дефиса подряд — на&nbsp;знак длинного тире.</li>" .
+											"<li>Заменять знак дефиса, ограниченный с&nbsp;обоих сторон цифрами — на&nbsp;знак короткого тире.</li>" .
+											"<li>Заменять два-четыре знака точки подряд &mdash; на&nbsp;знак многоточия.</li>" .
+											"<li>Заменять множество пробелов или&nbsp;табуляций на&nbsp;один пробел.</li>" .
+											"<li>Заменять х в&nbsp;выражениях вроде 10&times;10 на&nbsp;знак умножения.</li>" .
+											"<li>Исправлять неправильную расстановку запятых.</li>" .
+											"<li>Разносить неправильно расставленные кавычки.</li>" .
+											"<li>Форматировать номера телефонов.</li>" .
+											"<li>Вставлять неразрывный пробел после инициалов, слеплять инициалы.</li>" .
+											"<li>Делать неразрывными названия организаций и&nbsp;абревиатуры форм собственности.</li>" .
+											"<li>Делать неразрывными имя собственное и&nbsp;относящееся к&nbsp;нему сокращение.</li>" .
+											"<li>Не&nbsp;разделять 2007&nbsp;г., ставить пробел, если его нет.</li>" .
+											"<li>Слеплять скобки со&nbsp;словами.</li>" .
+											"<li>Заменять &frac12;, &frac14;, &frac34;, +-, &copy;, <sup><small>&reg;</small></sup>, <sup>&trade;</sup> на&nbsp;спецсимволы.</li>" .
+											"<li>Следить за&nbsp;тем, чтобы предлоги и&nbsp;союзы не&nbsp;находились в&nbsp;конце строки.</li>" .
+											"<li>Следить за&nbsp;тем, чтобы частицы бы, ли,&nbsp;же и&nbsp;т.д. не&nbsp;отрывались от&nbsp;предшествующего слова.</li>" .
+											"<li>Форматировать русские денежные суммы, расставляя пробелы в&nbsp;нужных местах.</li>" .
+											"<li>Заменять от&nbsp;2-х до&nbsp;5-и&nbsp;точек подряд на&nbsp;троеточие.</li>" .
+											"<li>Притягивать к&nbsp;слову запятые, отделять пробелом от&nbsp;последующего слова.</li>" .
+											"<li>Притягивать к&nbsp;слову восклицательный знак.</li>" .
+											"<li>Делать замену для&nbsp;+-.</li></ul>" .
+											"Пока&nbsp;не&nbsp;умеет:<ul>" .
+											"<li>Обрабатывать вложенные кавычки.</li></ul>");
+			break;
+		}
+		//
+		return $the_output;
+	}
+	
+	// Реализация ловушки hook_filter_tips
+	// Предоставляет подсказки к фильтру
+	function typographus_filter_tips($delta = 0, $format = -1, $long)
+	{
+		if ($long) {
+			// Детальная подсказка
+			$the_output = t("Текст автоматически преобразуется к более правильному с точки зрения типографики виду:<ul>" .
+											"<li>Кавычки заменяются на ёлочки.</li>" .
+											"<li>Двойные кавычки склеиваются.</li>" .
+											"<li>Знак дефиса или два знака дефиса подряд заменяются на знак длинного тире.</li>" .
+											"<li>Знак дефиса, ограниченный с обоих сторон цифрами, заменяется на знак короткого тире.</li>" .
+											"<li>Два-четыре знака точки подряд заменяются на знак многоточия.</li>" .
+											"<li>Множество пробелов или табуляций заменяются на один пробел.</li>" .
+											"<li>Символ x в выражениях вроде 10x10 заменяется на знак умножения.</li>" .
+											"<li>Исправляется неправильная расстановка запятых.</li>" .
+											"<li>Разносятся неправильно расставленные кавычки.</li>" .
+											"<li>Форматируются номера телефонов.</li>" .
+											"<li>Вставляется неразрывный пробел после инициалов, слепляются инициалы.</li>" .
+											"<li>Делаются неразрывными названия организаций и абревиатуры форм собственности.</li>" .
+											"<li>Делаются неразрывными имя собственное и относящееся к нему сокращение.</li>" .
+											"<li>Не разделяется 2007 г., ставится пробел, если его нет.</li>" .
+											"<li>Слепляются скобки со словами.</li>" .
+											"<li>Заменяются &frac12;, &frac14;, &frac34;, +-, &copy;, <sup><small>&reg;</small></sup>, <sup>&trade;</sup> на спецсимволы.</li>" .
+											"<li>Контролируется, чтобы предлоги и союзы не находились в конце строки.</li>" .
+											"<li>Контролируется, чтобы частицы бы, ли, же и т.д. не отрывались от предшествующего слова.</li>" .
+											"<li>Форматируются русские денежные суммы, расставляются пробелы в нужных местах.</li>" .
+											"<li>От 2-х до 5-и точек подряд заменяются на троеточие.</li>" .
+											"<li>Притягиваются к слову запятые, отделяются пробелом от последующего слова.</li>" .
+											"<li>Притягивается к слову восклицательный знак.</li>" .
+											"<li>Делается замена для +-.</li></ul>");
+		}
+		else {
+			// Короткая подсказка
+			$the_output = t("Текст автоматически преобразуется к более правильному с точки зрения типографики виду.");
+		}
+		//
+		return $the_output;
+	}
+	
+	// Реализация ловушки hook_filter
+	// Предоставляет контент (текст), пропущенный через фильтр,
+	// а также настройки и описание фильтра "Типограф"
+	function typographus_filter($op, $delta = 0, $format = -1, $text = "")
+	{
+		switch ($op) {
+		case "list":
+			// Название фильтра
+			return array(t("Типограф"));
+		case "description":
+			// Краткое описание фильтра
+			return t("Форматирует текст для приведения его к&nbsp;более правильному с&nbsp;точки зрения типографики&nbsp;виду.");
+		case "settings":
+			// Настройки фильтра
+			return _typographus_settings($format);
+		case "process":
+			// Преобразование контента (текста)
+			return _typographus_process($text, $format);
+		default:
+			return $text;
+		}
+	}
+	
+	// Вспомогательная функция для получения всего списка допустимых сущностей HTML,
+	// либо, если параметр $return_keys == true, всех ключей списка сущностей
+	function _get_all_essences($return_keys = false)
+	{
+		$essences = array(
+			"",
+			"nbsp" => t("Неразрывный пробел"),
+			"lnowrap" => t("Откр. тэг неразрывного блока"),
+			"rnowrap" => t("Закр. тэг неразрывного блока"),
+			"lquote" => t("Левая двойная кавычка"),
+			"rquote" => t("Правая двойная кавычка"),
+			"lquote2" => t("Левая одинарная кавычка"),
+			"rquote2" => t("Правая одинарная кавычка"),
+			"mdash" => t("Знак длинного тире"),
+			"ndash" => t("Знак короткого тире"),
+			"hellip" => t("Знак многоточия"),
+			"copy" => t("Знак (c)"),
+			"trade" => t("Знак (tm)"),
+			"apos" => t("Апостроф"),
+			"reg" => t("Знак (r)"),
+			"multiply" => t("Знак умножения"),
+			"1/2" => t("Спецсимвол 1/2"),
+			"1/4" => t("Спецсимвол 1/4"),
+			"3/4" => t("Спецсимвол 3/4"),
+			"plusmn" => t("Знак +-")
+		);
+		//
+		if ($return_keys)
+			return array_keys($essences);
+		else
+			return array_values($essences);
+	}
+	
+	// Вспомогательная функция для получения ключа списка сущностей HTML по индексу
+	function _get_essence($index)
+	{
+		$essences = _get_all_essences(true);
+		return $essences[$index];
+	}
+	
+	// Вспомогательная функция, предоставляющая настройки "Типографа"
+	// Все элементы формы настройки фильтра описываются здесь
+	function _typographus_settings($format)
+	{
+		// Секция настроек "Типографа" в общей форме настроек фильтров контента
+		$form["typographus_settings"] = array(
+			"#type" => "fieldset",
+			"#title" => t("Типограф"),
+			"#collapsible" => true,
+			"#collapsed" => false
+		);
+		//
+		// Секция добавления блоков, внутри которых текст не типографируется
+		$form["typographus_settings"]["blocks"] = array(
+			"#type" => "fieldset",
+			"#title" => t("Безопасные блоки"),
+			"#collapsible" => true,
+			"#collapsed" => false
+		);
+		//
+		// Подсказка для настройки
+		$form["typographus_settings"]["blocks"]["help"] = array(
+			"#type" => "markup",
+			"#value" => "<p>Если возникнет необходимость не обрабатывать текст внутри какого-либо блока – " .
+									"добавьте его в строке «Добавить» и нажмите кнопку «Сохранить настройки». " .
+									"Добавленные блоки можно удалять, отметив их в столбце «Удалить» и нажав " .
+									"кнопку «Сохранить настройки».</p>"
+		);
+		//
+		// Получение всех строк таблицы настроек безопасных блоков из БД Drupal'а
+		$blocks = variable_get("typographus_blocks_ids_on_$format", array());
+		$new_open = variable_get("typographus_block_new_open_on_$format", "");
+		$new_close = variable_get("typographus_block_new_close_on_$format", "");
+		//
+		// Добавление новой строки в таблицу настроек безопасных блоков 
+		if (strcmp($new_open, "") > 0) {
+			$n = count($blocks);
+			$id = ($n > 0) ? ($blocks[$n - 1] + 1) : 1;
+			$blocks[] = $id;
+			//
+			variable_set("typographus_block_{$id}_open_on_$format", $new_open);
+			variable_set("typographus_block_{$id}_close_on_$format", ((strcmp($new_close, "") > 0) ? $new_close : "/$new_open"));
+			//
+			variable_set("typographus_block_new_open_on_$format", "");
+			variable_set("typographus_block_new_close_on_$format", "");
+		}
+		//
+		// Шапка таблицы
+		$form["typographus_settings"]["blocks"]["typographus_blocks_head"] = array(
+			"#type" => "markup",
+			"#value" => "<table><thead><tr><th>" .
+									t("Включено") . "</th><th>" .
+									t("Откр. тэг") . "</th><th></th><th>" .
+									t("Закр. тэг") . "</th><th>" .
+									t("Удалить") . "</th></tr></thead><tbody>"
+		);
+		//
+		$row_classes = array(false => "even", true => "odd");
+		$is_row_odd = true;
+		//
+		$frame_prefix = "<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\"><tr><td style=\"font-weight:bold;text-align:right\">&lt;</td><td align=\"center\">";
+		$frame_suffix = "</td><td style=\"font-weight:bold;text-align:left\">&gt;</td></tr></table>";
+		//
+		// Вывод всех строк таблицы настроек безопасных блоков на форму
+		$n = count($blocks);
+		for ($i = 0; $i < $n; $i++) {
+			$id = $blocks[$i];
+			//
+			// Удаление строк, отмеченных пользователем на удаление
+			if (variable_get("typographus_block_{$id}_delete_on_$format", 0) == 1) {
+				unset($blocks[$i]);
+				//
+				variable_del("typographus_block_{$id}_enabled_on_$format");
+				variable_del("typographus_block_{$id}_open_on_$format");
+				variable_del("typographus_block_{$id}_close_on_$format");
+				variable_del("typographus_block_{$id}_delete_on_$format");
+				//
+				continue;
+			}
+			//
+			// Вывод не удаленных строк таблицы
+			$form["typographus_settings"]["blocks"]["typographus_block_{$id}_enabled_on_$format"] = array(
+				"#type" => "checkbox",
+				"#default_value" => variable_get("typographus_block_{$id}_enabled_on_$format", 1),
+				"#prefix" => "<tr class=\"{$row_classes[$is_row_odd]}\"><td>",
+				"#suffix" => "</td>"
+			);
+			$form["typographus_settings"]["blocks"]["typographus_block_{$id}_open_on_$format"] = array(
+				"#type" => "textfield",
+				"#size" => 10,
+				"#maxlength" => 60,
+				"#default_value" => variable_get("typographus_block_{$id}_open_on_$format", ""),
+				"#prefix" => "<td>$frame_prefix",
+				"#suffix" => "$frame_suffix</td><td style=\"font-size: 200%\">&hellip;</td>"
+			);
+			$form["typographus_settings"]["blocks"]["typographus_block_{$id}_close_on_$format"] = array(
+				"#type" => "textfield",
+				"#size" => 10,
+				"#maxlength" => 60,
+				"#default_value" => variable_get("typographus_block_{$id}_close_on_$format", ""),
+				"#prefix" => "<td>$frame_prefix",
+				"#suffix" => "$frame_suffix</td>"
+			);
+			$form["typographus_settings"]["blocks"]["typographus_block_{$id}_delete_on_$format"] = array(
+				"#type" => "checkbox",
+				"#default_value" => variable_get("typographus_block_{$id}_delete_on_$format", 0),
+				"#prefix" => "<td>",
+				"#suffix" => "</td></tr>"
+			);
+			//
+			$is_row_odd = !$is_row_odd;
+		}
+		//
+		// Вывод строки для ввода нового безопасного блока
+		$form["typographus_settings"]["blocks"]["typographus_block_new_open_on_$format"] = array(
+			"#type" => "textfield",
+			"#size" => 10,
+			"#maxlength" => 60,
+			"#default_value" => variable_get("typographus_block_new_open_on_$format", ""),
+			"#prefix" => "<tr class=\"{$row_classes[$is_row_odd]}\"><td style=\"font-weight: bold\">" .
+									 t("Добавить") . ":</td><td>$frame_prefix",
+			"#suffix" => "$frame_suffix</td><td style=\"font-size: 200%\">&hellip;</td>"
+		);
+		$form["typographus_settings"]["blocks"]["typographus_block_new_close_on_$format"] = array(
+			"#type" => "textfield",
+			"#size" => 10,
+			"#maxlength" => 60,
+			"#default_value" => variable_get("typographus_block_new_close_on_$format", ""),
+			"#prefix" => "<td>$frame_prefix",
+			"#suffix" => "$frame_suffix</td><td></td></tr></tbody></table>"
+		);
+		//
+		// Сохранение таблицы настроек безопасных блоков в БД Drupal'а
+		$blocks = array_values($blocks);
+		variable_set("typographus_blocks_ids_on_$format", $blocks);
+		//
+		// Секция добавления сущностей HTML и замен для них
+		$form["typographus_settings"]["essences"] = array(
+			"#type" => "fieldset",
+			"#title" => t("Замена сущностей на символы"),
+			"#collapsible" => true,
+			"#collapsed" => false
+		);
+		//
+		// Подсказка для настройки
+		$form["typographus_settings"]["essences"]["help"] = array(
+			"#type" => "markup",
+			"#value" => "<p>Иногда удобно использовать для замены символы вместо сущностей HTML. " .
+									"Код получается более компактным. Для добавления сущности и замены для неё " .
+									"заполните поля в строке «Добавить» и нажмите кнопку «Сохранить настройки». " .
+									"Добавленные сущности можно удалять, отметив их в столбце «Удалить» и нажав " .
+									"кнопку «Сохранить настройки».</p>"
+		);
+		//
+		// Получение всех строк таблицы настроек сущностей HTML из БД Drupal'а
+		$essences = variable_get("typographus_essences_ids_on_$format", array());
+		$new_essence = variable_get("typographus_essence_new_essence_on_$format", 0);
+		$new_change = variable_get("typographus_essence_new_change_on_$format", "");
+		//
+		// Добавление новой строки в таблицу настроек сущностей HTML
+		if ($new_essence > 0) {
+			$n = count($essences);
+			$id = ($n > 0) ? ($essences[$n - 1] + 1) : 1;
+			$essences[] = $id;
+			//
+			variable_set("typographus_essence_{$id}_essence_on_$format", $new_essence);
+			variable_set("typographus_essence_{$id}_change_on_$format", $new_change);
+			//
+			variable_set("typographus_essence_new_essence_on_$format", 0);
+			variable_set("typographus_essence_new_change_on_$format", "");
+		}
+		//
+		// Шапка таблицы
+		$form["typographus_settings"]["essences"]["typographus_essences_head"] = array(
+			"#type" => "markup",
+			"#value" => "<table><thead><tr><th>" .
+									t("Включено") . "</th><th>" .
+									t("Сущность") . "</th><th></th><th>" .
+									t("Замена") . "</th><th>" .
+									t("Удалить") . "</th></tr></thead><tbody>"
+		);
+		//
+		$row_classes = array(false => "even", true => "odd");
+		$is_row_odd = true;
+		//
+		// Вывод всех строк таблицы настроек сущностей HTML на форму
+		$n = count($essences);
+		for ($i = 0; $i < $n; $i++) {
+			$id = $essences[$i];
+			//
+			// Удаление строк, отмеченных пользователем на удаление
+			if (variable_get("typographus_essence_{$id}_delete_on_$format", 0) == 1) {
+				unset($essences[$i]);
+				//
+				variable_del("typographus_essence_{$id}_enabled_on_$format");
+				variable_del("typographus_essence_{$id}_essence_on_$format");
+				variable_del("typographus_essence_{$id}_change_on_$format");
+				variable_del("typographus_essence_{$id}_delete_on_$format");
+				//
+				continue;
+			}
+			//
+			// Вывод не удаленных строк таблицы
+			$form["typographus_settings"]["essences"]["typographus_essence_{$id}_enabled_on_$format"] = array(
+				"#type" => "checkbox",
+				"#default_value" => variable_get("typographus_essence_{$id}_enabled_on_$format", 1),
+				"#prefix" => "<tr class=\"{$row_classes[$is_row_odd]}\"><td>",
+				"#suffix" => "</td>"
+			);
+			$form["typographus_settings"]["essences"]["typographus_essence_{$id}_essence_on_$format"] = array(
+				"#type" => "select",
+				"#default_value" => variable_get("typographus_essence_{$id}_essence_on_$format", 0),
+				"#options" => _get_all_essences(),
+				"#prefix" => "<td>",
+				"#suffix" => "</td><td style=\"font-size: 200%\">&#x2192;</td>"
+			);
+			$form["typographus_settings"]["essences"]["typographus_essence_{$id}_change_on_$format"] = array(
+				"#type" => "textfield",
+				"#size" => 10,
+				"#maxlength" => 60,
+				"#default_value" => variable_get("typographus_essence_{$id}_change_on_$format", ""),
+				"#prefix" => "<td>",
+				"#suffix" => "</td>"
+			);
+			$form["typographus_settings"]["essences"]["typographus_essence_{$id}_delete_on_$format"] = array(
+				"#type" => "checkbox",
+				"#default_value" => variable_get("typographus_essence_{$id}_delete_on_$format", 0),
+				"#prefix" => "<td>",
+				"#suffix" => "</td></tr>"
+			);
+			//
+			$is_row_odd = !$is_row_odd;
+		}
+		//
+		// Вывод строки для ввода новой сущности HTML и замены для неё
+		$form["typographus_settings"]["essences"]["typographus_essence_new_essence_on_$format"] = array(
+			"#type" => "select",
+			"#default_value" => variable_get("typographus_essence_new_essence_on_$format", 0),
+			"#options" => _get_all_essences(),
+			"#prefix" => "<tr class=\"{$row_classes[$is_row_odd]}\"><td style=\"font-weight: bold\">" .
+									 t("Добавить") . ":</td><td>",
+			"#suffix" => "</td><td style=\"font-size: 200%\">&#x2192;</td>"
+    );
+		$form["typographus_settings"]["essences"]["typographus_essence_new_change_on_$format"] = array(
+			"#type" => "textfield",
+			"#size" => 10,
+			"#maxlength" => 60,
+			"#default_value" => variable_get("typographus_essence_new_change_on_$format", ""),
+			"#prefix" => "<td>",
+			"#suffix" => "</td><td></td></tr></tbody></table>"
+		);
+		//
+		// Сохранение таблицы настроек сущностей HTML в БД Drupal'а
+		$essences = array_values($essences);
+		variable_set("typographus_essences_ids_on_$format", $essences);
+		//
+		// Секция информации о фильтре "Типограф"
+		$form["typographus_settings"]["info"] = array(
+			"#type" => "fieldset",
+			"#title" => t("Информация о фильтре"),
+			"#collapsible" => true,
+			"#collapsed" => true
+		);
+		//
+		$form["typographus_settings"]["info"]["typographus_status"] = array(
+			"#type" => "markup",
+			"#value" => "<p>&laquo;Типограф&raquo;&nbsp;&mdash; средство подготовки текстов к&nbsp;<nobr>web-изданию</nobr>.<br />" .
+									"Ссылка: <a href=\"http://rmcreative.ru/article/programming/typograph/\">http://rmcreative.ru/article/programming/typograph/</a><br />" .
+									"Текущая версия: 2.0.5(PHP5), 1.0.5(PHP4)</p>"
+		);
+		//
+		return $form;
+	}
+	
+	// Вспомогательная функция, преобразующая контент (текст) к
+	// более правильному с точки зрения типографики виду
+	function _typographus_process($text, $format)
+	{
+		require_once(drupal_get_path("module", "typographus") . "/typographus.php");
+		//
+		$typo = new Typographus("UTF-8");
+		//
+		// Добавление блоков, внутри которых текст не типографируется, указанных в настройках фильтра
+		$blocks = variable_get("typographus_blocks_ids_on_$format", array());
+		for ($i = 0; $i < count($blocks); $i++) {
+			$id = $blocks[$i];
+			//
+			$is_enabled = variable_get("typographus_block_{$id}_enabled_on_$format", 1);
+			$open_block = variable_get("typographus_block_{$id}_open_on_$format", "");
+			$close_block = variable_get("typographus_block_{$id}_close_on_$format", "");
+			//
+			if (($is_enabled == 1) && (strcmp($open_block, "") > 0))
+				$typo->addSafeBlock("<" . $open_block . ">",
+														"<" . ((strcmp($close_block, "") > 0) ? $close_block : "/$open_block") . ">");
+		}
+		//
+		// Замена сущностей на символы, указанных в настройках фильтра
+		$essences = variable_get("typographus_essences_ids_on_$format", array());
+		for ($i = 0; $i < count($essences); $i++) {
+			$id = $essences[$i];
+			//
+			$is_enabled = variable_get("typographus_essence_{$id}_enabled_on_$format", 1);
+			$essence_id = variable_get("typographus_essence_{$id}_essence_on_$format", 0);
+			$change_sym = variable_get("typographus_essence_{$id}_change_on_$format", "");
+			//
+			if (($is_enabled == 1) && ($essence_id > 0))
+				$typo->setSym(_get_essence($essence_id), $change_sym);
+		}
+		//
+		// Типографирование текста
+		$text = $typo->process($text);
+		//
+		return $text;
+	}
