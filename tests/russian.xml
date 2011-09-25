@@ -1,0 +1,1065 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Russan profile tests
+    Author: Alexander Makarov
+-->
+<tests>
+    <group>
+        <description>Много пробелов или табуляций на один пробел</description>
+            <test>
+                <input>тест                 тест</input>
+                <expected>тест тест</expected>
+            </test>
+    </group>
+    <group>
+        <description>Один или более минус между словами на тире</description>
+        <test>
+            <input>тест - тест</input>
+            <expected><![CDATA[тест&nbsp;— тест]]></expected>
+        </test>
+        <test>
+            <input>тест -- тест</input>
+            <expected><![CDATA[тест&nbsp;— тест]]></expected>
+        </test>
+        <test>
+            <input>120 - 40 = 80</input>
+            <expected>120 - 40 = 80</expected>
+        </test>
+    </group>
+    <group>
+        <description>Кавычки</description>
+        <test>
+            <input>рассказы "Сердце", "Эвакуация" и "Майский жук".</input>
+            <expected><![CDATA[рассказы «Сердце», «Эвакуация» и&nbsp;«Майский жук».]]></expected>
+        </test>
+        <test>
+            <input>абырвалг: "АААААААБ ЫЫЫРРР "ээээ" алг!" фывфыв</input>
+            <expected>абырвалг: «АААААААБ ЫЫЫРРР „ээээ“ алг!» фывфыв</expected>
+        </test>
+        <test>
+            <input>"word "word" word"</input>
+            <expected>«word „word“ word»</expected>
+        </test>
+        <test>
+            <input>("слово")</input>
+            <expected>(«слово»)</expected>
+        </test>
+        <test>
+            <input>asd"test"asd</input>
+            <expected>asd «test» asd</expected>
+        </test>
+        <test>
+            <input>"Скрыть в меню и карте сайта";</input>
+            <expected><![CDATA[«Скрыть в&nbsp;меню и&nbsp;карте сайта»;]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[Не конвертируются &quot;quot&quot; кавычки в елочки, а должны.]]></input>
+            <expected><![CDATA[Не&nbsp;конвертируются «quot» кавычки в&nbsp;елочки, а&nbsp;должны.]]></expected>
+        </test>
+        <test>
+            <input>Не конвертируются «всякие« кавычки в елочки, а должны.</input>
+            <expected><![CDATA[Не&nbsp;конвертируются «всякие» кавычки в&nbsp;елочки, а&nbsp;должны.]]></expected>
+        </test>
+        <test>
+            <input>««кавычки»»</input>
+            <expected>«„кавычки“»</expected>
+        </test>
+        <test>
+            <input>"слово "слово"!"</input>
+            <expected>«слово „слово“!»</expected>
+        </test>
+        <test>
+            <input><![CDATA[<b>"слово"</b> <b>"слово"</b>]]></input>
+            <expected><![CDATA[<b>«слово»</b> <b>«слово»</b>]]></expected>
+        </test>
+        <test>
+            <input>"всё"</input>
+            <expected>«всё»</expected>
+        </test>
+    </group>
+    <group>
+        <description>Basic</description>
+        <test>
+            <input>я хочу</input>
+            <expected><![CDATA[я&nbsp;хочу]]></expected>
+        </test>
+        <test>
+            <input>Сегодня был создан</input>
+            <expected>Сегодня был создан</expected>
+        </test>
+        <test>
+            <input>Сегодня будет создан</input>
+            <expected>Сегодня будет создан</expected>
+        </test>
+        <test>
+            <input>закон "об охране". asdfasdfasdf</input>
+            <expected><![CDATA[закон «об&nbsp;охране». asdfasdfasdf]]></expected>
+        </test>
+        <test>
+            <input>закон "об охране".</input>
+            <expected><![CDATA[закон «об&nbsp;охране».]]></expected>
+        </test>
+        <test>
+            <input>вряд ли...</input>
+            <expected><![CDATA[вряд&nbsp;ли…]]></expected>
+        </test>
+        <test>
+            <input>о себе</input>
+            <expected><![CDATA[о&nbsp;себе]]></expected>
+        </test>
+        <test>
+            <input>у себя</input>
+            <expected><![CDATA[у&nbsp;себя]]></expected>
+        </test>
+        <test>
+            <input>сочетание "кавычек"... с троеточием</input>
+            <expected><![CDATA[сочетание «кавычек»… с&nbsp;троеточием]]></expected>
+        </test>
+        <test>
+            <input>some code to "change". for real...</input>
+            <expected>some code to «change». for real…</expected>
+        </test>
+        <test>
+            <input>button "English Pages".</input>
+            <expected>button «English Pages».</expected>
+        </test>
+        <test>
+            <input>button "English Pages"?</input>
+            <expected>button «English Pages»?</expected>
+        </test>
+        <test>
+            <input>троеточие...</input>
+            <expected>троеточие…</expected>
+        </test>
+        <test>
+            <input>...троеточие?</input>
+            <expected>…троеточие?</expected>
+        </test>
+        <test>
+            <input>(...троеточие?)</input>
+            <expected>(…троеточие?)</expected>
+        </test>
+        <test>
+            <input>(троеточие...)</input>
+            <expected>(троеточие…)</expected>
+        </test>
+        <test>
+            <input>word "go out..." doubleword</input>
+            <expected>word «go out…» doubleword</expected>
+        </test>
+        <test>
+            <input>word "go out..."</input>
+            <expected>word «go out…»</expected>
+        </test>
+        <test>
+            <input>word "...go out..." doubleword</input>
+            <expected>word «…go out…» doubleword</expected>
+        </test>
+        <test>
+            <input>word "...go out"</input>
+            <expected>word «…go out»</expected>
+        </test>
+        <test>
+            <input>"go out!"</input>
+            <expected>«go out!»</expected>
+        </test>
+        <test>
+            <input>"go out?"</input>
+            <expected>«go out?»</expected>
+        </test>
+        <test>
+            <input>"go out."</input>
+            <expected>«go out.»</expected>
+        </test>
+        <test>
+            <input>123 "go out!"</input>
+            <expected>123 «go out!»</expected>
+        </test>
+        <test>
+            <input>123 "go out?"</input>
+            <expected>123 «go out?»</expected>
+        </test>
+        <test>
+            <input>123 "go out."</input>
+            <expected>123 «go out.»</expected>
+        </test>
+        <test>
+            <input>123 "go out!" 123</input>
+            <expected>123 «go out!» 123</expected>
+        </test>
+        <test>
+            <input>123 "go out?" 232</input>
+            <expected>123 «go out?» 232</expected>
+        </test>
+        <test>
+            <input>123 "go out." 321</input>
+            <expected>123 «go out.» 321</expected>
+        </test>
+        <test>
+            <input>"go out!" 123</input>
+            <expected>«go out!» 123</expected>
+        </test>
+        <test>
+            <input>"go out?" 232</input>
+            <expected>«go out?» 232</expected>
+        </test>
+        <test>
+            <input>"go out." 321</input>
+            <expected>«go out.» 321</expected>
+        </test>
+        <test>
+            <input>word "quoted" word</input>
+            <expected>word «quoted» word</expected>
+        </test>
+        <test>
+            <input>"quoted" word word</input>
+            <expected>«quoted» word word</expected>
+        </test>
+        <test>
+            <input>word word "quoted"</input>
+            <expected>word word «quoted»</expected>
+        </test>
+        <test>
+            <input>word "quo ted" word</input>
+            <expected>word «quo ted» word</expected>
+        </test>
+        <test>
+            <input>"quo ted" word word</input>
+            <expected>«quo ted» word word</expected>
+        </test>
+        <test>
+            <input>word word "quo ted"</input>
+            <expected>word word «quo ted»</expected>
+        </test>
+        <test>
+            <input>123-123</input>
+            <expected>123–123</expected>
+        </test>
+        <test>
+            <input>лишние   пробелы</input>
+            <expected>лишние пробелы</expected>
+        </test>
+        <test>
+            <input>отсутствие"пробела"</input>
+            <expected>отсутствие «пробела»</expected>
+        </test>
+        <test>
+            <input>"_"</input>
+            <expected>«_»</expected>
+        </test>
+        <test>
+            <input>"Европа-Азия"</input>
+            <expected>«Европа-Азия»</expected>
+        </test>
+        <test>
+            <input>"ICQ #"</input>
+            <expected>«ICQ #»</expected>
+        </test>
+        <test>
+            <input>C++-API</input>
+            <expected>C++-API</expected>
+        </test>
+        <test>
+            <input>"c:\www\sites\"</input>
+            <expected>«c:\www\sites\»</expected>
+        </test>
+        <test>
+            <input>"Справка 09"</input>
+            <expected>«Справка 09»</expected>
+        </test>
+        <test>
+            <input>"данные:"</input>
+            <expected>«данные:»</expected>
+        </test>
+        <test>
+            <input>диагональ моего монитора — 17", а размер карандаша — 1,5"</input>
+            <expected><![CDATA[диагональ моего монитора&nbsp;— 17", а&nbsp;размер карандаша&nbsp;— 1,5"]]></expected>
+        </test>
+        <test>
+            <input>"новый тариф*"</input>
+            <expected>«новый тариф*»</expected>
+        </test>
+        <test>
+            <input>"Её любил я; сорок тысяч братьев / всем множеством своей любви со мною не уравнялись бы" — в этих знаменитых словах Гамлета подлинное, глубокое чувство</input>
+            <expected><![CDATA[«Её любил я; сорок тысяч братьев / всем множеством своей любви со&nbsp;мною не&nbsp;уравнялись бы»&nbsp;— в&nbsp;этих знаменитых словах Гамлета подлинное, глубокое чувство]]></expected>
+        </test>
+        <test>
+            <input>"Я сидел рядом с С. И. Танеевым"</input>
+            <expected><![CDATA[«Я&nbsp;сидел рядом с&nbsp;С.И.&nbsp;Танеевым»]]></expected>
+        </test>
+        <test>
+            <input>"I was with A. M. Thompson"</input>
+            <expected><![CDATA[«I was with A.M.&nbsp;Thompson»]]></expected>
+        </test>
+        <test>
+            <input>"вопрос? - ответ!"</input>
+            <expected><![CDATA[«вопрос?&nbsp;— ответ!»]]></expected>
+        </test>
+        <test>
+            <input>"Опять это чёртово тире...", - подумала программа "Типограф"</input>
+            <expected><![CDATA[«Опять это чёртово тире…»,&nbsp;— подумала программа «Типограф»]]></expected>
+        </test>
+        <test>
+            <input>Хотим на сайт "Типограф!" - кричали ребятишки.</input>
+            <expected><![CDATA[Хотим на&nbsp;сайт «Типограф!»&nbsp;— кричали ребятишки.]]></expected>
+        </test>
+        <test>
+            <input>http://rmcreative.ru/ - это сайт "Типографа"</input>
+            <expected><![CDATA[http://rmcreative.ru/&nbsp;— это сайт «Типографа»]]></expected>
+        </test>
+        <test>
+            <input>!!!",</input>
+            <expected>!!!»,</expected>
+        </test>
+        <test>
+            <input>!!!".</input>
+            <expected>!!!».</expected>
+        </test>
+        <test>
+            <input>!!!"!</input>
+            <expected>!!!»!</expected>
+        </test>
+        <test>
+            <input>"Любопытно", -- подумал князь ,пережовывая бублик.</input>
+            <expected><![CDATA[«Любопытно»,&nbsp;— подумал князь, пережовывая бублик.]]></expected>
+        </test>
+        <test>
+            <input>Я знаю одно слово на букву "х"!</input>
+            <expected><![CDATA[Я&nbsp;знаю одно слово на&nbsp;букву&nbsp;«х»!]]></expected>
+        </test>
+        <test>
+            <input>"Star Flyer Inc."</input>
+            <expected>«Star Flyer Inc.»</expected>
+        </test>
+        <test>
+            <input>LO'Лайт</input>
+            <expected><![CDATA[LO&rsquo;Лайт]]></expected>
+        </test>
+        <test>
+            <input>v. 1.0.2</input>
+            <expected><![CDATA[v.&nbsp;1.0.2]]></expected>
+        </test>
+        <test>
+            <input>ООО "Рога и копыта"</input>
+            <expected><![CDATA[<span style="white-space:nowrap">ООО «Рога и&nbsp;копыта»</span>]]></expected>
+        </test>
+        <test>
+            <input>г. Воронеж</input>
+            <expected><![CDATA[г.&nbsp;Воронеж]]></expected>
+        </test>
+        <test>
+            <input>г.Воронеж</input>
+            <expected><![CDATA[г.&nbsp;Воронеж]]></expected>
+        </test>
+        <test>
+            <input>пос. Гадюково</input>
+            <expected><![CDATA[пос.&nbsp;Гадюково]]></expected>
+        </test>
+        <test>
+            <input>тов. Сталин</input>
+            <expected><![CDATA[тов.&nbsp;Сталин]]></expected>
+        </test>
+        <test>
+            <input>стр.27</input>
+            <expected><![CDATA[стр.&nbsp;27]]></expected>
+        </test>
+        <test>
+            <input>2007г.</input>
+            <expected><![CDATA[2007&nbsp;г.]]></expected>
+        </test>
+        <test>
+            <input>2007 г.</input>
+            <expected><![CDATA[2007&nbsp;г.]]></expected>
+        </test>
+        <test>
+            <input>Скобки( Неправильные! )</input>
+            <expected>Скобки (Неправильные!)</expected>
+        </test>
+        <test>
+            <input>100 тыс.   руб.</input>
+            <expected><![CDATA[100&nbsp;тыс.&nbsp;руб.]]></expected>
+        </test>
+        <test>
+            <input>1000000руб.</input>
+            <expected><![CDATA[1000000&nbsp;руб.]]></expected>
+        </test>        
+    </group>
+    <group>
+        <description>Latest</description>
+        <test>
+            <input>10 кг</input>
+            <expected><![CDATA[10&nbsp;кг]]></expected>
+        </test>
+        <test>
+            <input>10кг</input>
+            <expected><![CDATA[10&nbsp;кг]]></expected>
+        </test>
+        <test>
+            <input>"слово" , слово</input>
+            <expected>«слово», слово</expected>
+        </test>
+        <test>
+            <input>слово , "слово"</input>
+            <expected>слово, «слово»</expected>
+        </test>
+        <test>
+            <input>'слово' , слово</input>
+            <expected><![CDATA[&#39;слово&#39;, слово]]></expected>
+        </test>
+        <test>
+            <input>слово , 'слово'</input>
+            <expected><![CDATA[слово, &#39;слово&#39;]]></expected>
+        </test>
+        <test>
+            <input><![CDATA["тест"<tag>"тест"]]></input>
+            <expected><![CDATA[«тест»<tag>«тест»]]></expected>
+        </test>
+        <test>
+            <input>ОТветь. "бла бла" вап xcvxv — вап. Бла "ввв"</input>
+            <expected><![CDATA[ОТветь. «бла бла» вап xcvxv&nbsp;— вап. Бла «ввв»]]></expected>
+        </test>
+        <test>
+            <input>да "тест"- уже</input>
+            <expected><![CDATA[да&nbsp;«тест»- уже]]></expected>
+        </test>
+        <test>
+            <input>Типограф v.2.0</input>
+            <expected><![CDATA[Типограф&nbsp;v.&nbsp;2.0]]></expected>
+        </test>
+        <test>
+            <input>10м2</input>
+            <expected><![CDATA[10&nbsp;м<sup>2</sup>]]></expected>
+        </test>
+        <test>
+            <input>1100мм, 920 мм.</input>
+            <expected><![CDATA[1100&nbsp;мм, 920&nbsp;мм.]]></expected>
+        </test>
+        <test>
+            <input>тест,тест</input>
+            <expected>тест, тест</expected>
+        </test>
+        <test>
+            <input>тест ,тест</input>
+            <expected>тест, тест</expected>
+        </test>
+        <test>
+            <input>тест, тест</input>
+            <expected>тест, тест</expected>
+        </test>
+        <test>
+            <input>тест;тест</input>
+            <expected>тест; тест</expected>
+        </test>
+        <test>
+            <input>тест ;тест</input>
+            <expected>тест; тест</expected>
+        </test>
+        <test>
+            <input>тест; тест</input>
+            <expected>тест; тест</expected>
+        </test>
+        <test>
+            <input>тест:тест</input>
+            <expected>тест: тест</expected>
+        </test>
+        <test>
+            <input>тест :тест</input>
+            <expected>тест: тест</expected>
+        </test>
+        <test>
+            <input>тест: тест</input>
+            <expected>тест: тест</expected>
+        </test>
+        <test>
+            <input>тест.тест</input>
+            <expected>тест. тест</expected>
+        </test>
+        <test>
+            <input>тест .тест</input>
+            <expected>тест. тест</expected>
+        </test>
+        <test>
+            <input>тест. тест</input>
+            <expected>тест. тест</expected>
+        </test>
+        <test>
+            <input>тест!тест</input>
+            <expected>тест! тест</expected>
+        </test>
+        <test>
+            <input>тест !тест</input>
+            <expected>тест! тест</expected>
+        </test>
+        <test>
+            <input>тест! тест</input>
+            <expected>тест! тест</expected>
+        </test>
+        <test>
+            <input>тест?тест</input>
+            <expected>тест? тест</expected>
+        </test>
+        <test>
+            <input>тест ?тест</input>
+            <expected>тест? тест</expected>
+        </test>
+        <test>
+            <input>тест? тест</input>
+            <expected>тест? тест</expected>
+        </test>
+        <test>
+            <input>тест(тест</input>
+            <expected>тест (тест</expected>
+        </test>
+        <test>
+            <input>1  x 2</input>
+            <expected><![CDATA[1×2]]></expected>
+        </test>
+        <test>
+            <input>Я очень очень очень хочу на море!</input>
+            <expected><![CDATA[Я&nbsp;очень очень очень хочу на&nbsp;море!]]></expected>
+        </test>
+        <test>
+            <input>3,65</input>
+            <expected>3,65</expected>
+        </test>
+        <test>
+            <input>22:33</input>
+            <expected>22:33</expected>
+        </test>
+        <test>
+            <input>газо- и электросварка</input>
+            <expected><![CDATA[газо- и&nbsp;электросварка]]></expected>
+        </test>
+        <test>
+            <input>„Клиника ФГУ «ФБМСЭ» согласно Лицензии…“</input>
+            <expected>„Клиника ФГУ «ФБМСЭ» согласно Лицензии…“</expected>
+        </test>
+        <test>
+            <input>«в соответствии с Распоряжением Правительства РФ».</input>
+            <expected><![CDATA[«в&nbsp;соответствии с&nbsp;Распоряжением Правительства РФ».]]></expected>
+        </test>
+        <test>
+            <input>"Приветствуем Вас"</input>
+            <expected>«Приветствуем Вас»</expected>
+        </test>
+        <test>
+            <input>"вася - лох"</input>
+            <expected><![CDATA[«вася&nbsp;— лох»]]></expected>
+        </test>
+        <test>
+            <input>22:33</input>
+            <expected>22:33</expected>
+        </test>
+        <test>
+            <input>22,33</input>
+            <expected>22,33</expected>
+        </test>
+        <test>
+            <input>совместно с художником Рерихом</input>
+            <expected><![CDATA[совместно с&nbsp;художником Рерихом]]></expected>
+        </test>
+        <test>
+            <input>Москва -- столица России.</input>
+            <expected><![CDATA[Москва&nbsp;— столица России.]]></expected>
+        </test>
+        <test>
+            <input>МГУ, ГУМ</input>
+            <expected>МГУ, ГУМ</expected>
+        </test>
+        <test>
+            <input>Смайл :( Жопа</input>
+            <expected>Смайл :( Жопа</expected>
+        </test>
+        <test>
+            <input><![CDATA[<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />до(в т.ч. из полимерных материалов); устройство тепловых систем с температурой; водопроводных систем и оборудования (в т.ч. из полимерных материалов)]]></input>
+            <expected><![CDATA[<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />до(в т.ч. из полимерных материалов); устройство тепловых систем с температурой; водопроводных систем и оборудования (в т.ч. из полимерных материалов)]]></expected>
+        </test>
+        <test>
+            <input>Разрешение 300dpi (для офсета).</input>
+            <expected><![CDATA[Разрешение 300&nbsp;dpi (для&nbsp;офсета).]]></expected>
+        </test>
+        <test>
+            <input>Разрешение 300px (для офсета).</input>
+            <expected><![CDATA[Разрешение 300&nbsp;px (для&nbsp;офсета).]]></expected>
+        </test>
+        <test>
+            <input>В	этом   тексте  много пробелов.</input>
+            <expected><![CDATA[В&nbsp;этом тексте много пробелов.]]></expected>
+        </test>
+        <test>
+            <input>Мало написать а запятые кто за тебя расставит. Я же расставлял но похоже что-то пропустил.</input>
+            <expected><![CDATA[Мало написать, а&nbsp;запятые кто за&nbsp;тебя расставит. Я&nbsp;же расставлял, но&nbsp;похоже <span style="white-space:nowrap">что-то</nobr>&nbsp;пропустил.]]></expected>
+        </test>
+        <test>
+            <input>Кто то где то когда то как то что то чем то стукнул. И возможно чего нибудь бы получилось если б кто либо пришел.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">Кто-то</nobr> <span style="white-space:nowrap">где-то</nobr> <span style="white-space:nowrap">когда-то</nobr> <span style="white-space:nowrap">как-то</nobr> <span style="white-space:nowrap">что-то</nobr> <span style="white-space:nowrap">чем-то</nobr> стукнул. И&nbsp;возможно <span style="white-space:nowrap">чего-нибудь</nobr>&nbsp;бы получилось если&nbsp;б <span style="white-space:nowrap">кто-либо</nobr>&nbsp;пришел.]]></expected>
+        </test>
+        <test>
+            <input>В смешанных лесах встречаются разнообразные деревья, как то: береза, осина, кедр, сосна.</input>
+            <expected><![CDATA[В&nbsp;смешанных лесах встречаются разнообразные деревья, как то: береза, осина, кедр,&nbsp;сосна.]]></expected>
+        </test>
+        <test>
+            <input>Опять же что - то получилось, но как- то не так.</input>
+            <expected><![CDATA[Опять&nbsp;же <span style="white-space:nowrap">что-то</nobr> получилось, но&nbsp;<span style="white-space:nowrap">как-то</nobr>&nbsp;не&nbsp;так.]]></expected>
+        </test>
+        <test>
+            <input>Возьми ка детка молока.  А коль увижу де, что казнь ему мала, повешу тут же всех судей вокруг стола. Поди кась так.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">Возьми-ка</nobr> детка молока. А&nbsp;коль <span style="white-space:nowrap">увижу-де</nobr>, что казнь ему мала, повешу тут&nbsp;же всех судей вокруг стола. <span style="white-space:nowrap">Поди-кась</nobr>&nbsp;так.]]></expected>
+        </test>
+        <test>
+            <input>Кое как дошли. Кой кого встретили. Кое от кого, кое на чем, кой у кого, кое с чьим.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">Кое-как</nobr> дошли. <span style="white-space:nowrap">Кой-кого</nobr> встретили. Кое от&nbsp;кого, кое на&nbsp;чем, кой у&nbsp;кого, кое&nbsp;с&nbsp;чьим.]]></expected>
+        </test>
+        <test>
+            <input>Секретарь, хотя и чувствовал свое слабое недовольство, все таки радовался наличию таких старушек в активе района. Но хоть и велик был соблазн, я таки успел себя побороть.</input>
+            <expected><![CDATA[Секретарь, хотя и&nbsp;чувствовал свое слабое недовольство, <span style="white-space:nowrap">все-таки</nobr> радовался наличию таких старушек в&nbsp;активе района. Но&nbsp;хоть и&nbsp;велик был соблазн, я&nbsp;таки успел себя&nbsp;побороть.]]></expected>
+        </test>
+        <test>
+            <input>Из за леса величаво выплывало солнце. Из под развесистой сирени вдруг с лаем выскочила собака.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">Из-за</nobr> леса величаво выплывало солнце. <span style="white-space:nowrap">Из-под</nobr> развесистой сирени вдруг с&nbsp;лаем выскочила&nbsp;собака.]]></expected>
+        </test>
+        <test>
+            <input>Правда!? Правда!!! Неправда??? Честно?? Честно!! Проехали.. Задумчиво...</input>
+            <expected>Правда?! Правда!!! Неправда??? Честно? Честно! Проехали. Задумчиво…</expected>
+        </test>
+        <test>
+            <input>Некоторые виды деревьев : ель ,сосна , берёза, дуб ; растут в наших лесах .</input>
+            <expected><![CDATA[Некоторые виды деревьев: ель, сосна, берёза, дуб; растут в&nbsp;наших лесах.]]></expected>
+        </test>
+        <test>
+            <input>Так бывает.И вот так...И ещё вот так!..Бывает же???Что поделать.</input>
+            <expected><![CDATA[Так бывает. И&nbsp;вот так…И&nbsp;ещё вот так!.. Бывает&nbsp;же??? Что&nbsp;поделать.]]></expected>
+        </test>
+        <test>
+            <input>- Я пошёл домой... - Может останешься? - Нет, ухожу.</input>
+            <expected><![CDATA[—&nbsp;Я&nbsp;пошёл домой…&nbsp;— Может останешься? —&nbsp;Нет,&nbsp;ухожу.]]></expected>
+        </test>
+        <test>
+            <input>123-32</input>
+            <expected>123–32</expected>
+        </test>
+        <test>
+            <input>(С) 1999-2003г., ООО "Фирма "Эдельвейс". Все права защищены.</input>
+            <expected><![CDATA[© <span style="white-space:nowrap">1999—2003 гг.</nobr>, <span style="white-space:nowrap">ООО «Фирма «Эдельвейс»</nobr>. Все права&nbsp;защищены.]]></expected>
+        </test>
+        <test>
+            <input>Она добавила: "И цвет мой самый любимый - "эсмеральда"".</input>
+            <expected><![CDATA[Она добавила: «И&nbsp;цвет мой самый любимый&nbsp;— &bdquo;эсмеральда&ldquo;».]]></expected>
+        </test>
+        <test>
+            <input>10,34руб., 23тыс.долл., 64 млн.евро, 34.3€, 56$, 3,65уе</input>
+            <expected><![CDATA[10,34&nbsp;руб., 23&nbsp;тыс.&nbsp;долл., 64&nbsp;млн.&nbsp;евро, 34.3&nbsp;&euro;, 56&nbsp;$,&nbsp;3,65&nbsp;у.е.]]></expected>
+        </test>
+        <test>
+            <input>Лес, газ, нефть и тд., и т.п.. Перины, подушки в тч. подушки-думки.</input>
+            <expected><![CDATA[Лес, газ, нефть <span style="white-space:nowrap">и т.д.</nobr>, <span style="white-space:nowrap">и т.п.</nobr> Перины, подушки <span style="white-space:nowrap">в т.ч.</nobr>&nbsp;<span style="white-space:nowrap">подушки-думки</nobr>.]]></expected>
+        </test>
+        <test>
+            <input>Данные изложены в таблице см.цветной вкладыш. Дом им.Пушкина.</input>
+            <expected><![CDATA[Данные изложены в&nbsp;таблице см.&nbsp;цветной вкладыш. Дом им.&nbsp;Пушкина.]]></expected>
+        </test>
+        <test>
+            <input>Инструкцию см. гл. 8, стр.34, рис.3 или илл.3.</input>
+            <expected><![CDATA[Инструкцию см.&nbsp;гл.&nbsp;8, стр.&nbsp;34, рис.&nbsp;3 или&nbsp;илл.&nbsp;3.]]></expected>
+        </test>
+        <test>
+            <input>Оля, Иван, Олег и др. ребята.</input>
+            <expected><![CDATA[Оля, Иван, Олег и&nbsp;др.&nbsp;ребята.]]></expected>
+        </test>
+        <test>
+            <input>г.Тюмень, ул.Ленина, д. 4</input>
+            <expected><![CDATA[г.&nbsp;Тюмень, ул.&nbsp;Ленина, д.&nbsp;4]]></expected>
+        </test>
+        <test>
+            <input>P.S. привет всем.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">P.S.</nobr> привет&nbsp;всем.]]></expected>
+        </test>
+        <test>
+            <input>P.P.S. и мне тоже.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">P.P.S.</nobr> и&nbsp;мне&nbsp;тоже.]]></expected>
+        </test>
+        <test>
+            <input>Жёлто-оранжевый цвет. Ростов-на-Дону красивый город.</input>
+            <expected><![CDATA[<span style="white-space:nowrap">Жёлто-оранжевый</nobr> цвет. <span style="white-space:nowrap">Ростов-на-Дону</nobr> красивый&nbsp;город.]]></expected>
+        </test>
+        <test>
+            <input>ООО "Фирма "Терминал", НИИ "ОблСнабВротКомпот"</input>
+            <expected><![CDATA[<span style="white-space:nowrap">ООО «Фирма «Терминал», НИИ «ОблСнабВротКомпот»</nobr>]]></expected>
+        </test>
+        <test>
+            <input>Гост 5773-90 - российские стандартные форматы изданий</input>
+            <expected><![CDATA[<span style="white-space:nowrap">ГОСТ 5773&ndash;90 —</nobr> российские стандартные форматы&nbsp;изданий]]></expected>
+        </test>
+        <test>
+            <input>~23,5в</input>
+            <expected><![CDATA[<span style="white-space:nowrap">~23,5 В</nobr>]]></expected>
+        </test>
+        <test>
+            <input>123 456 789 руб. В стычке участвовало 3 200 человек.</input>
+            <expected><![CDATA[123&nbsp;456&nbsp;789&nbsp;руб. В&nbsp;стычке участвовало 3&nbsp;200&nbsp;человек.]]></expected>
+        </test>
+        <test>
+            <input>Адрес localhost - 127.0.0.1</input>
+            <expected><![CDATA[Адрес localhost&nbsp;— <span style="white-space:nowrap">127.0.0.1</nobr>]]></expected>
+        </test>
+        <test>
+            <input>Это событие произошло между 1999-2001г.г., на стыке XX-XXIв.</input>
+            <expected><![CDATA[Это событие произошло между <span style="white-space:nowrap">1999—2001 гг.</nobr>, на&nbsp;стыке&nbsp;<span style="white-space:nowrap">XX—XXI вв.</nobr>]]></expected>
+        </test>
+        <test>
+            <input>Документ был подписан 17.02.1983г. И утратил свою силу 07.03.93 года.</input>
+            <expected><![CDATA[Документ был подписан <span style="white-space:nowrap">17.02.1983 г.</nobr> И&nbsp;утратил свою силу <span style="white-space:nowrap">07.03.93</nobr>&nbsp;года.]]></expected>
+        </test>
+        <test>
+            <input>Собеседования состоятся 14-24 сентября, в актовом зале с 11:30-13:00.</input>
+            <expected><![CDATA[Собеседования состоятся <span style="white-space:nowrap">14—24 сентября</nobr>, в&nbsp;актовом зале&nbsp;с&nbsp;<span style="white-space:nowrap">11:30—13:00</nobr>.]]></expected>
+        </test>
+        <test>
+            <input>Выставка пройдёт в апреле-мае этого года.</input>
+            <expected><![CDATA[Выставка пройдёт в&nbsp;апреле—мае этого&nbsp;года.]]></expected>
+        </test>
+        <test>
+            <input>IV в до н.э, в V-VIвв до нэ., третий в. н.э.</input>
+            <expected><![CDATA[IV&nbsp;<span style="white-space:nowrap">в. до н.э.</nobr>, в&nbsp;<span style="white-space:nowrap">V—VI вв. до н.э.</nobr>, третий <span style="white-space:nowrap">в. н.э.</nobr>]]></expected>
+        </test>
+        <test>
+            <input>А.С.Пушкин, Пушкин А.С.</input>
+            <expected>А.С.Пушкин, Пушкин А.С.</expected>
+        </test>
+        <test>
+            <input><![CDATA[...Когда В. И. Пупкин увидел в газете ( это была &quot;Сермяжная правда&quot; № 45) рубрику Weather Forecast(r), он не поверил своим глазам - температуру обещали +-451F.]]></input>
+            <expected><![CDATA[…Когда В.&nbsp;И.&nbsp;Пупкин увидел в&nbsp;газете (это была «Сермяжная правда» &#8470;&nbsp;45) рубрику Weather Forecast<sup><small>&reg;</small></sup>, он&nbsp;не&nbsp;поверил своим глазам&nbsp;— температуру обещали&nbsp;&plusmn;<span style="white-space:nowrap">451 &deg;F</nobr>.]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[Пушкин, оценивая всех своих предшественников, писал: &quot;... Некоторые оды Державина, несмотря на неправильность языка и неровность слога, исполнены порывами гения...&quot;.]]></input>
+            <expected><![CDATA[Пушкин, оценивая всех своих предшественников, писал: «… Некоторые оды Державина, несмотря на&nbsp;неправильность языка и&nbsp;неровность слога, исполнены порывами гения…».]]></expected>
+        </test>
+        <test>
+            <input>На лесопилку завезли 32 м3 леса, из которых 4м3 пустили под распил на 25мм доски, длиной по 6м.</input>
+            <expected><![CDATA[На&nbsp;лесопилку завезли 32&nbsp;м<sup>3</sup> леса, из&nbsp;которых 4&nbsp;м<sup>3</sup> пустили под&nbsp;распил на&nbsp;25&nbsp;мм доски, длиной&nbsp;по&nbsp;6&nbsp;м.]]></expected>
+        </test>
+        <test>
+            <input>Сдается с 20 октября</input>
+            <expected><![CDATA[Сдается с&nbsp;20 октября]]></expected>
+        </test>
+        <test>
+            <input>пл. – 125 м2, 4 этаж</input>
+            <expected><![CDATA[пл. – 125&nbsp;м<sup>2</sup>, 4 этаж]]></expected>
+        </test>
+        <test>
+            <input>3/8этажного</input>
+            <expected>3/8 этажного</expected>
+        </test>
+        <test>
+            <input>с 1 сентября</input>
+            <expected><![CDATA[с&nbsp;1 сентября]]></expected>
+        </test>
+        <test>
+            <input>тест,- тест</input>
+            <expected>тест,- тест</expected>
+        </test>
+        <test>
+            <input>где нибудь</input>
+            <expected><![CDATA[<span style="white-space: nowrap;">где–нибудь</span>]]></expected>
+        </test>
+        <test>
+            <input>гденибудь</input>
+            <expected><![CDATA[<span style="white-space: nowrap;">где–нибудь</span>]]></expected>
+        </test>
+        <test>
+            <input>из за этого</input>
+            <expected><![CDATA[<span style="white-space: nowrap;">из–за</span> этого]]></expected>
+        </test>
+        <test>
+            <input>изза этого</input>
+            <expected><![CDATA[<span style="white-space: nowrap;">из–за</span> этого]]></expected>
+        </test>        
+    </group>
+    <group>
+        <description>Dizzyman</description>
+        <test>
+            <input>Текст  с    множеством пробелов 			и табов.</input>
+            <expected><![CDATA[Текст с&nbsp;множеством пробелов и&nbsp;табов.]]></expected>
+        </test>
+        <test>
+            <input>Я скажу о себе, у себя, к себе, для себя, себя??? ли???</input>
+            <expected><![CDATA[Я&nbsp;скажу о&nbsp;себе, у&nbsp;себя, к&nbsp;себе, для&nbsp;себя, себя&nbsp;ли…]]></expected>
+        </test>
+        <test>
+            <input>В :  этом . тексте   , перед  ;   знаками ... препинания ! пробелы ?</input>
+            <expected>В: этом. тексте, перед; знаками… препинания! пробелы?</expected>
+        </test>
+        <test>
+            <input>В, , этом,, тексте. .. много;;;;;; лишних?? знаков : : припенания?!!! !!!! Мы  .. иx? ? ? ?должны:::: убрать!!!!!!!!!</input>
+            <expected>В, этом, тексте… много; лишних? знаков: припенания?!! Мы. их??? должны: убрать!!!</expected>
+        </test>
+        <test>
+            <input>С этим. . . . . что-то, , ,,, ,, странное? ? ? ???</input>
+            <expected><![CDATA[С&nbsp;этим… что-то, странное???]]></expected>
+        </test>
+        <test>
+            <input>...Этим! (…текстом?) (проверяем...) ( ... проверяем : ) (самые ... ) "... разные" " ... случаи " (жизни,)</input>
+            <expected>…Этим! (…текстом?) (проверяем…) (…проверяем) (самые…) «…разные» «…случаи» (жизни)</expected>
+        </test>
+        <test>
+            <input>(,текст) (в скобках!) (:не) (может:) (;начинаться) (и) (заканчиваться,) (некоторыми.) (знаками...)</input>
+            <expected><![CDATA[(текст) (в&nbsp;скобках!) (не) (может) (начинаться) (и) (заканчиваться) (некоторыми.) (знаками…)]]></expected>
+        </test>
+        <test>
+            <input>Вот что же делать ;) со смайликами :))?</input>
+            <expected><![CDATA[Вот что&nbsp;же делать ;) со&nbsp;смайликами :))?]]></expected>
+        </test>
+        <test>
+            <input>(((( А если несколько скобок? ) что делать?</input>
+            <expected>Я не знаю :))</expected>
+        </test>
+        <test>
+            <input>Вот в таком :))))) случае делаем вот так :)), а в таком ))))))))) вот так )</input>
+            <expected><![CDATA[Вот в&nbsp;таком :)) случае делаем вот так :)), а&nbsp;в&nbsp;таком) вот так)]]></expected>
+        </test>
+        <test>
+            <input>("кавычки) ("в каждых скобках" нужно ) (обрабатывать" отдельно ) !</input>
+            <expected><![CDATA[("кавычки) ("в&nbsp;каждых скобках" нужно) (обрабатывать" отдельно)!]]></expected>
+        </test>
+        <test>
+            <input>Текст "в кавычках,". тоже "не может:"... заканчиваться ";и начинаться": разными "знаками!"; препинания "! кавычки"? Это "глупо..."!</input>
+            <expected><![CDATA[Текст «в&nbsp;кавычках». тоже «не&nbsp;может:»... заканчиваться «и&nbsp;начинаться»: разными «знаками!»; препинания «кавычки»? Это «глупо…»!]]></expected>
+        </test>        
+    </group>
+    <group>
+        <description>Isaykin</description>
+        <test>
+            <input>"федор михайлович не прав", - сказал он, -"ой!"</input>
+            <expected><![CDATA[«федор михайлович не&nbsp;прав»,&nbsp;— сказал он, -«ой!»]]></expected>
+        </test>
+        <test>
+            <input>"    не было б печали    "</input>
+            <expected><![CDATA[«не&nbsp;было&nbsp;б печали»]]></expected>
+        </test>
+        <test>
+            <input>Михаил Васильевич знал как говорить матом. Как говорится,"матерился" он, нехороший человек.</input>
+            <expected><![CDATA[Михаил Васильевич знал как&nbsp;говорить матом. Как&nbsp;говорится, «матерился» он, нехороший человек.]]></expected>
+        </test>
+        <test>
+            <input>""Ля-ля""</input>
+            <expected>«Ля-ля»</expected>
+        </test>
+        <test>
+            <input>Нет!,!</input>
+            <expected>Нет!</expected>
+        </test>
+        <test>
+            <input>Ой, , гы!</input>
+            <expected>Ой, гы!</expected>
+        </test>
+        <test>
+            <input>"слово.".</input>
+            <expected>«слово».</expected>
+        </test>
+        <test>
+            <input>Вася сказал::</input>
+            <expected>Вася сказал:</expected>
+        </test>
+        <test>
+            <input>Вася сказал: :</input>
+            <expected>Вася сказал:</expected>
+        </test>
+        <test>
+            <input>Вася сказал: : :</input>
+            <expected>Вася сказал:</expected>
+        </test>
+        <test>
+            <input>Вася сказал, , ,</input>
+            <expected>Вася сказал,</expected>
+        </test>
+        <test>
+            <input>Вася сказал;   ;  ;  ;     ;</input>
+            <expected>Вася сказал;</expected>
+        </test>
+        <test>
+            <input>"Эргономика!!" - наше всё!"</input>
+            <expected><![CDATA[«Эргономика!»&nbsp;— наше всё!»]]></expected>
+        </test>
+        <test>
+            <input>Ибрагим, ты читал что-нибудь O''Really?</input>
+            <expected><![CDATA[Ибрагим, ты читал что-нибудь O&rsquo;Really?]]></expected>
+        </test>
+        <test>
+            <input>Список: "яблони: "красная" и "синяя, марки "Ленточка"", сливы тоже есть".</input>
+            <expected>Список: «яблони: „красная“ и „синяя, марки „Ленточка“, сливы тоже есть».</expected>
+        </test>
+        <test>
+            <input>кое какой</input>
+            <expected>кое-какой</expected>
+        </test>
+        <test>
+            <input>давай ка</input>
+            <expected>давай-ка</expected>
+        </test>        
+    </group>
+    <group>
+        <description>Разные символы</description>
+        <test>
+            <input>1/2 3/4 1/4</input>
+            <expected><![CDATA[½ ¾ ¼]]></expected>
+        </test>
+        <test>
+            <input>(c)Microsoft 2000</input>
+            <expected>©Microsoft 2000</expected>
+        </test>
+        <test>
+            <input>Microsft(tm)</input>
+            <expected><![CDATA[Microsft<sup>™</sup>]]></expected>
+        </test>
+        <test>
+            <input>Microsoft(r)</input>
+            <expected><![CDATA[Microsoft<sup><small>®</small></sup>]]></expected>
+        </test>
+        <test>
+            <input>3х4, 3 х 6</input>
+            <expected><![CDATA[3×4, 3×6]]></expected>
+        </test>
+        <test>
+            <input>10*12</input>
+            <expected><![CDATA[10×12]]></expected>
+        </test>
+        <test>
+            <input>10X12</input>
+            <expected><![CDATA[10×12]]></expected>
+        </test>
+        <test>
+            <input>10x12</input>
+            <expected><![CDATA[10×12]]></expected>
+        </test>
+        <test>
+            <input>10х12</input>
+            <expected><![CDATA[10×12]]></expected>
+        </test>
+        <test>
+            <input>10Х12</input>
+            <expected><![CDATA[10×12]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<-]]></input>
+            <expected><![CDATA[←]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[->]]></input>
+            <expected><![CDATA[→]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[-->]]></input>
+            <expected><![CDATA[-->]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<--]]></input>
+            <expected><![CDATA[<--]]></expected>
+        </test>
+        <test>
+            <input>+-10 метров</input>
+            <expected><![CDATA[±10&nbsp;метров]]></expected>
+        </test>
+        <test>
+            <input>100 %</input>
+            <expected>100%</expected>
+        </test>
+        <test>
+            <input>слово !!!</input>
+            <expected>слово!!!</expected>
+        </test>
+        <test>
+            <input>слово !</input>
+            <expected>слово!</expected>
+        </test>
+        <test>
+            <input>слово !?</input>
+            <expected>слово?!</expected>
+        </test>
+        <test>
+            <input>слово !!?</input>
+            <expected>слово?!</expected>
+        </test>
+        <test>
+            <input>слово .</input>
+            <expected>слово.</expected>
+        </test>
+        <test>
+            <input>технология .net</input>
+            <expected>технология .net</expected>
+        </test>
+        <test>
+            <input>слово ?</input>
+            <expected>слово?</expected>
+        </test>
+        <test>
+            <input>слово :</input>
+            <expected>слово:</expected>
+        </test>
+        <test>
+            <input>"слово" :</input>
+            <expected>«слово»:</expected>
+        </test>
+        <test>
+            <input>ааа!!!</input>
+            <expected>ааа!!!</expected>
+        </test>
+        <test>
+            <input>да???</input>
+            <expected>да???</expected>
+        </test>
+        <test>
+            <input>ааа!!! ! !! ! !</input>
+            <expected>ааа!!!</expected>
+        </test>        
+    </group>
+    <group>
+        <description>Unix</description>
+        <test>
+            <input>Стоит ли переходить на "Vista" в первый день после его появления?</input>
+            <expected><![CDATA[Стоит&nbsp;ли переходить на&nbsp;«Vista» в&nbsp;первый день после его появления?]]></expected>
+        </test>        
+    </group>
+    <group>
+        <description>fazeful</description>
+        <test>
+            <input>2008 , текст</input>
+            <expected>2008, текст</expected>
+        </test>
+    </group>
+    <group>
+        <description>Dr. Death</description>
+        <test>
+            <input>вдоль трассы М1"Москва-Минск" возле</input>
+            <expected>вдоль трассы М1 «Москва-Минск» возле</expected>
+        </test>
+    </group>
+    <!--<group>
+        <description>Телефоны</description>
+        <test>
+            <input>тел: 89101231231</input>
+            <expected><![CDATA[<span style="white-space:nowrap">тел: 8 (910) 123-12-31</span>]]></expected>
+        </test>
+        <test>
+            <input>тел./факс(812)</input>
+            <expected><![CDATA[тел./факс:&nbsp;(812)]]></expected>
+        </test>
+        <test>
+            <input>тел. 123-45-67</input>
+            <expected>тел. 123-45-67</expected>
+        </test>
+        <test>
+            <input>8-960-288-38-67</input>
+            <expected>8-960-288-38-67</expected>
+        </test>
+        <test>
+            <input>+7 (3452) 55-66-77, 8 905 555-55-55</input>
+            <expected><![CDATA[<span style="white-space:nowrap">+7 (3452) 55-66-77</nobr>, <span style="white-space:nowrap">8 905 555-55-55</span>]]></expected>
+        </test>        
+    </group>-->
+    <!--<group>
+        <test>
+            <input>"Склейка "ёлочек""</input>
+            <expected>«Склейка «ёлочек»</expected>
+        </test>        
+    </group>-->
+</tests>

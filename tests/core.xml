@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Typographus core tests
+    Author: Alexander Makarov
+-->
+<tests>
+    <group>
+        <description>Тесты ядра (обход HTML)</description>
+        <test>
+            <input><![CDATA[<span class="test">тест - тест</span>]]></input>
+            <expected><![CDATA[<span class="test">тест&nbsp;— тест</span>]]></expected>
+        </test>
+        <test>
+            <!--<name>Тест на обход HTML ядром типографа 2</name>-->
+            <input><![CDATA[<code class="php">тест - тест</code>]]></input>
+            <expected><![CDATA[<code class="php">тест - тест</code>]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<i>тест - тест</i>]]></input>
+            <expected><![CDATA[<i>тест&nbsp;— тест</i>]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<b aaa="1">]]></input>
+            <expected><![CDATA[<b aaa="1">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<b aaa="1" bbb="2">]]></input>
+            <expected><![CDATA[<b aaa="1" bbb="2">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<b aaa="1" bbb="2" ccc="3">]]></input>
+            <expected><![CDATA[<b aaa="1" bbb="2" ccc="3">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<b aaa="1" bbb="2" ccc="3" ddd="4">]]></input>
+            <expected><![CDATA[<b aaa="1" bbb="2" ccc="3" ddd="4">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[123 <img alt=":)" src="/images/smiles/smile.gif"> 123]]></input>
+            <expected><![CDATA[123 <img alt=":)" src="/images/smiles/smile.gif"> 123]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<img alt=":)" src="/images/smiles/smile.gif">]]></input>
+            <expected><![CDATA[<img alt=":)" src="/images/smiles/smile.gif">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<a href="http://www.professionalconsulting.ru/blog/realcms/">"CMS на самом деле"</a>]]></input>
+            <expected><![CDATA[<a href="http://www.professionalconsulting.ru/blog/realcms/">«CMS на&nbsp;самом деле»</a>]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<img width="200" height="150" src="/images/cds.jpg" alt="/images/cds.jpg">]]></input>
+            <expected><![CDATA[<img width="200" height="150" src="/images/cds.jpg" alt="/images/cds.jpg">]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<b>"done"</b>]]></input>
+            <expected><![CDATA[<b>«done»</b>]]></expected>
+        </test>
+        <test>
+            <input><![CDATA["word" <pre as="is" is="as">"q"</pre> "word"]]></input>
+            <expected><![CDATA[«word» <pre as="is" is="as">"q"</pre> «word»]]></expected>
+        </test>
+        <test>
+            <input><![CDATA["word" <pre as="is" is="as">word</pre> "word"]]></input>
+            <expected><![CDATA[«word» <pre as="is" is="as">word</pre> «word»]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[doo "bee" <!-- doo "bee" --> doo]]></input>
+            <expected><![CDATA[doo «bee» <!-- doo "bee" --> doo]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[(c) <pre>(c)</pre> (c) <pre>(c)</pre> (c)]]></input>
+            <expected><![CDATA[© <pre>(c)</pre> © <pre>(c)</pre> ©]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[(c) <pre>(c)</pre> (c) (c)]]></input>
+            <expected><![CDATA[© <pre>(c)</pre> © ©]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[word "<a href="http://url.ru/">word</a>".]]></input>
+            <expected><![CDATA[word «<a href="http://url.ru/">word</a>».]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[radio "<a href="http://ya.ru/">voice of africa</a>" ddddd]]></input>
+            <expected><![CDATA[radio «<a href="http://ya.ru/">voice of africa</a>» ddddd]]></expected>
+        </test>
+        <test>
+            <input><![CDATA["text" <pre> "code" </pre> "text"]]></input>
+            <expected><![CDATA[«text» <pre> "code" </pre> «text»]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[text <a href="htrt" b="sdf">kiss "me" </a> text]]></input>
+            <expected><![CDATA[text <a href="htrt" b="sdf">kiss «me» </a> text]]></expected>
+        </test>
+        <test>
+            <input><![CDATA["<a href="http://rmc.net.ru/article/photo/001/">Фотография</a>"]]></input>
+            <expected><![CDATA[«<a href="http://rmc.net.ru/article/photo/001/">Фотография</a>»]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[Сегодня был создан раздел "<a href="http://rmc.net.ru/article/photo/001/">Фотография</a>", куда будут выкладываться сделанные нами фото.]]></input>
+            <expected><![CDATA[Сегодня был создан раздел «<a href="http://rmc.net.ru/article/photo/001/">Фотография</a>», куда будут выкладываться сделанные нами фото.]]></expected>
+        </test>
+        <test>
+            <input><![CDATA[<img src="http://dash-domain-here.com" alt="http://dash-domain-here.com">]]></input>
+            <expected><![CDATA[<img src="http://dash-domain-here.com" alt="http://dash-domain-here.com">]]></expected>
+        </test>
+    </group>
+</tests>

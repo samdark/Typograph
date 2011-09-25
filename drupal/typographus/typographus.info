@@ -1,8 +1,0 @@
-﻿; $Id: typographus.info,v 1.0 2007/09/25 13:03:33 rmcreative Exp $
-
-name = Typographus
-description = Форматирует текст для приведения его к более правильному с точки зрения типографики виду.
-package = "Фильтры форматов ввода"
-dependencies = filter
-project = "typographus"
-version = 1.0
