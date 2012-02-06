@@ -163,9 +163,9 @@ class RussianTypographusProfile extends TypographusProfile {
 			//"/($sym[lquote]\S*)(\s+)(\S*$sym[rquote])/U" => '$1'.$sym["nbsp"].'$3',
 
 			//Телефоны
-            //'~(?:тел\.?/?факс:?\s?\((\d+)\))~i' => 'тел./факс:'.$sym['nbsp'].'($1)',
+            '~(?:тел\.?/?факс:?\s?\((\d+)\))~i' => 'тел./факс:'.$sym['nbsp'].'($1)',
 
-			//'~тел[:.] ?(\d+)~ie' => "'<span style=\"white-space:nowrap\">тел: '.self::_phone('$1').'</span>'",
+			'~тел[:.] ?(\d+)~ie' => "'<span style=\"white-space:nowrap\">тел: '.self::_phone('$1').'</span>'",
 
 			//Номер версии программы пишем неразрывно с буковкой v.
 			'~([vв]\.) ?(\p{Nd})~iu' => '$1&nbsp;$2',
