@@ -137,7 +137,7 @@ class Typographus{
    * @param String $phone
    * @return String
    */
-  /*
+
   private static function _phone($phone){
     $result = $phone[0].' ('.$phone[1].$phone[2].$phone[3].') ';
     $count = 0;
@@ -163,7 +163,7 @@ class Typographus{
     $result.=strrev($buff);
     return $result;
   }
-  */
+
 
   /**
    * Вызывает типограф, обходя html-блоки и безопасные блоки

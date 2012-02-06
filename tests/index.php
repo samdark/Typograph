@@ -10,7 +10,7 @@
 <?php
 
 ob_start();
-require_once('../Typographus.php');
+require_once('../typographus.php');
 
 function typo($str){
 	$typo = new Typographus();
