@@ -76,6 +76,9 @@ class Typographus {
     $str = $this->profile->process($str);
 
     $str = strtr($str, self::_stack());
+
+    // выдераем дублирующиеся nowrap
+    $str = preg_replace('/(\<(\/?span[^\>]*)\>)+/i', '$1',$str);
     
     return $str;
   }
@@ -128,7 +131,7 @@ abstract class TypographusProfile {
         // Убираем неразрывные пробелы
         $str = preg_replace('~&nbsp;~u', ' ', $str);
         // Приводим кавычки к «"»
-        $str = preg_replace('~(«|»|„|“|&laquo;|&raquo;|&quot;)~u', '"', $str);
+        $str = preg_replace('~(„|“|&quot;)~u', '"', $str);
 
         return html_entity_decode(trim($str), null, 'utf-8');
     }
