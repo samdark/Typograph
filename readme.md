@@ -1,8 +1,8 @@
 Типограф (PHP5)
 ===============
 
-- Страничка: http://rmcreative.ru/article/programming/typograph/
-- Онлайн-версия: http://typo.rmcreative.ru/
+- Страничка: http://rmcreative.ru/blog/post/tipograf
+- Онлайн-версия: http://rmcreative.ru/typograph/
 
 Авторы:
 
